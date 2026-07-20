@@ -1,0 +1,6 @@
+Hello, world!
+I can't believe NLP is so interesting.
+My email is student@example.com.
+The price is $15.99.
+Dr. Smith works at C-DAC.
+Mr. John lives in the U.S.A.

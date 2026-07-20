@@ -1,0 +1,455 @@
+# Smart CCTV Search.
+
+## Semantic Search in CCTV Videos Using Vision-Language Embeddings
+
+---
+
+# 1. Project Overview
+
+Smart CCTV Search is an AI-powered video retrieval system that enables users to search CCTV footage using natural language queries.
+
+Traditional surveillance systems require operators to manually review large volumes of video recordings to locate specific objects or events. This process is time-consuming and inefficient, especially when dealing with hours of continuous footage.
+
+This project aims to simplify video investigation by allowing users to search surveillance videos using text-based queries. The system analyzes CCTV footage, creates semantic representations of video frames using a Vision-Language Model, and retrieves the most relevant video segments based on the user's query.
+
+---
+
+# 2. Problem Statement
+
+Large-scale surveillance systems generate vast amounts of video data every day. Finding specific objects within these recordings often requires manually reviewing hours of footage.
+
+The objective of this project is to build a semantic video search system that enables users to locate objects in CCTV videos using natural language queries.
+
+### Example Queries
+
+* Show me a blue truck.
+* Find a red car.
+* Show a bus.
+* Find a motorcycle.
+* Show a bicycle.
+* Find a person.
+
+### Expected Output
+
+For a given query, the system should:
+
+* Search the uploaded CCTV video.
+* Identify visually similar frames.
+* Retrieve relevant timestamps.
+* Generate short clips around the detected timestamps.
+* Present the results to the user.
+
+---
+
+# 3. Project Objectives
+
+### Primary Objectives
+
+* Enable natural language search over CCTV footage.
+* Reduce manual video inspection effort.
+* Retrieve timestamps associated with queried objects.
+* Automatically generate video clips containing the matched content.
+
+### Secondary Objectives
+
+* Build an efficient video indexing pipeline.
+* Store and search frame embeddings efficiently.
+* Establish a scalable foundation for future intelligent surveillance applications.
+
+---
+
+# 4. Scope of Version 1
+
+The first version of the system focuses on object-level semantic search using Vision-Language Embeddings.
+
+### Supported Queries
+
+Examples:
+
+* Blue truck
+* Red car
+* Bus
+* Motorcycle
+* Bicycle
+* Person
+
+### Out of Scope
+
+The following features are intentionally excluded from Version 1:
+
+* Person identification
+* Person re-identification
+* Object tracking
+* Activity recognition
+* Event detection
+* Fine-grained attribute recognition
+
+Examples:
+
+* Man with black hat
+* Person carrying a backpack
+* Person entering through a gate
+* Suspicious activity detection
+
+These capabilities may be explored in future versions.
+
+---
+
+# 5. System Architecture
+
+The system consists of two major stages:
+
+## A. Video Indexing Pipeline (Offline Processing)
+
+The uploaded CCTV video is processed and converted into searchable embeddings.
+
+```text
+CCTV Video
+      |
+      V
+Frame Extraction
+      |
+      V
+Frame Preprocessing
+      |
+      V
+CLIP Image Encoder
+      |
+      V
+Frame Embedding Generation
+      |
+      V
+Embedding Storage
+      |
+      V
+Vector Index Creation
+```
+
+---
+
+## B. Search Pipeline (Online Processing)
+
+When a user submits a query, the system performs semantic similarity search against the indexed video content.
+
+```text
+User Query
+      |
+      V
+CLIP Text Encoder
+      |
+      V
+Text Embedding
+      |
+      V
+Similarity Search
+      |
+      V
+Matching Frames
+      |
+      V
+Timestamp Retrieval
+      |
+      V
+Clip Generation
+      |
+      V
+Results
+```
+
+---
+
+# 6. System Workflow
+
+## Step 1: Video Upload
+
+The user uploads a CCTV video file.
+
+Example:
+
+```text
+parking_lot_cctv.mp4
+```
+
+The video is stored for processing.
+
+---
+
+## Step 2: Frame Extraction
+
+The video is divided into individual frames at predefined intervals.
+
+Example:
+
+```text
+1 frame per second
+```
+
+The extracted frames represent the visual content of the video.
+
+---
+
+## Step 3: Embedding Generation
+
+Each frame is passed through the CLIP image encoder.
+
+The encoder converts visual information into a high-dimensional embedding vector that captures the semantic meaning of the frame.
+
+Example:
+
+```text
+Frame
+   |
+   V
+CLIP
+   |
+   V
+Embedding Vector
+```
+
+---
+
+## Step 4: Embedding Storage
+
+The generated embeddings are stored alongside frame metadata.
+
+Example Metadata:
+
+```json
+{
+  "video_id": "cam01",
+  "frame_id": 2450,
+  "timestamp": "00:13:24"
+}
+```
+
+---
+
+## Step 5: Index Creation
+
+All frame embeddings are indexed within a vector database to support efficient similarity search.
+
+This allows the system to search thousands of frames quickly.
+
+---
+
+## Step 6: Query Processing
+
+The user enters a natural language query.
+
+Example:
+
+```text
+blue truck
+```
+
+The CLIP text encoder converts the query into a text embedding.
+
+---
+
+## Step 7: Similarity Search
+
+The query embedding is compared against all stored frame embeddings.
+
+The system retrieves the frames with the highest similarity scores.
+
+---
+
+## Step 8: Timestamp Retrieval
+
+The matched frames are mapped back to their original timestamps within the video.
+
+Example:
+
+```text
+Match 1
+Timestamp: 00:13:24
+
+Match 2
+Timestamp: 01:45:10
+```
+
+---
+
+## Step 9: Clip Generation
+
+Short video clips are generated around each retrieved timestamp.
+
+Example:
+
+```text
+Timestamp:
+00:13:24
+
+Generated Clip:
+00:13:15 → 00:13:35
+```
+
+These clips are returned to the user for review.
+
+---
+
+# 7. Technology Stack
+
+## Computer Vision
+
+### OpenCV
+
+Purpose:
+
+* Video loading
+* Frame extraction
+* Frame preprocessing
+* Clip generation
+
+---
+
+## Vision-Language Model
+
+### CLIP
+
+Purpose:
+
+* Generate image embeddings from video frames.
+* Generate text embeddings from user queries.
+* Enable semantic similarity matching between images and text.
+
+---
+
+## Vector Search
+
+Possible options:
+
+* FAISS
+* ChromaDB
+
+Purpose:
+
+* Store embeddings.
+* Perform efficient nearest-neighbor search.
+
+---
+
+## Backend
+
+### Python
+
+Purpose:
+
+* Pipeline orchestration
+* Search operations
+* Clip generation
+
+### FastAPI
+
+Purpose:
+
+* Video upload APIs
+* Search APIs
+* Result retrieval APIs
+
+---
+
+## Frontend
+
+### HTML, CSS, JavaScript
+
+Purpose:
+
+* Video upload interface
+* Search interface
+* Result visualization
+
+---
+
+# 8. Project Folder Structure
+
+```text
+Smart-CCTV-Search/
+│
+├── data/
+│   ├── raw_videos/
+│   ├── extracted_frames/
+│   └── clips/
+│
+├── embeddings/
+│   ├── frame_embeddings/
+│   └── indexes/
+│
+├── models/
+│   └── clip/
+│
+├── pipelines/
+│   ├── video_ingestion/
+│   ├── frame_extraction/
+│   ├── embedding_generation/
+│   ├── indexing/
+│   ├── retrieval/
+│   └── clip_generation/
+│
+├── search/
+│   ├── text_embedding/
+│   └── similarity_search/
+│
+├── api/
+│
+├── frontend/
+│
+├── configs/
+│
+├── logs/
+│
+├── docs/
+│
+└── README.md
+```
+
+---
+
+# 9. Expected Input and Output
+
+## Input
+
+### CCTV Video
+
+```text
+parking_lot_cctv.mp4
+```
+
+### Search Query
+
+```text
+blue truck
+```
+
+---
+
+## Output
+
+```text
+Match 1
+Timestamp: 00:13:24
+
+Match 2
+Timestamp: 01:45:10
+
+Match 3
+Timestamp: 02:10:33
+```
+
+Generated Clips:
+
+```text
+clip_01.mp4
+clip_02.mp4
+clip_03.mp4
+```
+
+---
+
+# 10. Expected Outcome
+
+The final system will provide an intelligent search mechanism for CCTV footage by combining Vision-Language Embeddings and semantic similarity search.
+
+Users will be able to upload surveillance videos, search for objects using natural language, retrieve relevant timestamps, and automatically generate clips containing the requested visual content.
+
+The project serves as a foundation for future enhancements such as object detection, tracking, activity recognition, and multi-camera video retrieval.

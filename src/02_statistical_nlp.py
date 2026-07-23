@@ -209,3 +209,49 @@ print("\nBag of Words Matrix\n")
 for i, vector in enumerate(bow_matrix, start=1):
     print(f"Sentence {i}")
     print(vector)
+
+
+# =====================================================
+# WORD TO INDEX MAP
+# =====================================================
+
+print("\n" + "=" * 60)
+print("WORD TO INDEX MAP")
+print("=" * 60)
+
+word_to_index = {}
+
+for index, word in enumerate(vocabulary):
+    word_to_index[word] = index
+
+print(word_to_index)
+
+
+
+# =====================================================
+# STEP 9 : FAST BAG OF WORDS
+# =====================================================
+
+print("\n" + "=" * 60)
+print("FAST BAG OF WORDS")
+print("=" * 60)
+
+fast_bow = []
+
+for sentence in lemmatized_document:
+
+    vector = [0] * len(vocabulary)
+
+    for word in sentence:
+
+        if word in word_to_index:
+
+            index = word_to_index[word]
+
+            vector[index] += 1
+
+    fast_bow.append(vector)
+
+for i, vector in enumerate(fast_bow, start=1):
+    print(f"\nSentence {i}")
+    print(vector)

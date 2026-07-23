@@ -1,0 +1,86 @@
+## Day 1 
+- Started with the split function in the python to split the words of a string in python.
+- file read from the dir - 
+    with open(file_path, "r", encoding="utf-8") as file:
+        text = file.read()
+
+    On many modern systems, especially Linux and recent Python installations, the default is indeed UTF-8.
+    However, on some Windows setups, the default has historically been a Windows-specific code page (such as cp1252 or another locale-specific encoding).
+    That's why explicitly specifying encoding="utf-8" is considered good practice—it makes your code behave consistently across different machines.
+
+## Day 2 
+    - Tokemization varies according to the usecase, or for which purpose we want to use
+    Task	          Preferred Tokenization
+    Search Engine	- Keep student@example.com as one token
+    Email Parser	- Split around @ and .
+    Grammar Checking - Preserve punctuation
+    Language Model	- Use subword tokens
+    Information Extraction	- Depends on the entity type
+
+
+    Original	Stemming	Lemmatization (No POS)	Lemmatization (POS)
+    ======================================================================
+    believe	    believ	    believe	                believe               |
+    works	    work	    work	                work                  |
+    lives	    live	    life ❌                 live ✅              |
+    is	     is	    is	                 be ✅                |  
+    interesting	interest  interesting	           interesting          |
+    =========================================================================\
+
+
+
+Studied about the classical NLP Pipe Line 
+ Document
+      │
+      ▼
+Normalization
+      │
+      ▼
+Sentence Tokenization
+      │
+      ▼
+Word Tokenization
+      │
+      ▼
+Cleaning
+      │
+      ▼
+Stopword Removal
+      │
+      ▼
+Stemming
+      │
+      ▼
+Lemmatization
+      │
+      ▼
+POS Tagging
+      │
+      ▼
+NER
+
+Finished 
+✔ Read Text
+✔ Normalization
+✔ Sentence Segmentation
+✔ Word Tokenization
+✔ Rule-Based Cleaning
+✔ Regex Cleaning
+✔ Stopword Removal
+✔ Stemming
+✔ Lemmatization
+✔ POS Tagging
+✔ Named Entity Recognition
+
+
+Text Reading loads the document into memory.
+Whitespace Normalization standardizes formatting.
+Sentence Segmentation identifies sentence boundaries.
+Word Tokenization extracts individual tokens.
+Text Cleaning removes unwanted characters according to predefined rules.
+Stopword Removal filters common function words.
+Stemming reduces words to stems using heuristic rules.
+Lemmatization produces valid dictionary forms.
+POS Tagging assigns grammatical roles to words.
+POS-aware Lemmatization uses grammatical information to improve normalization.
+Named Entity Recognition identifies mentions of real-world entities such as people, organizations, and locations.

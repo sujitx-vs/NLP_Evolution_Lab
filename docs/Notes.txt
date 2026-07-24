@@ -121,3 +121,10 @@ IDF=log(N/DF​)
 
 
 TF-IDF=TF×IDF
+
+
+
+The Smart CCTV Search document was converted into numerical vectors using both a manual TF-IDF implementation and Scikit-Learn's TfidfVectorizer. 
+The document contained 67 sentences and approximately 270 unique vocabulary terms. 
+Each sentence was represented as a sparse TF-IDF vector, where most values were zero because only the words present in a sentence received non-zero weights. 
+The Scikit-Learn implementation produced similar feature representations but different numerical values due to its default L2 normalization.

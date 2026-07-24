@@ -6,6 +6,7 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 nltk.download("wordnet")
 nltk.download("omw-1.4")
@@ -418,3 +419,29 @@ for i, tfidf in enumerate(tfidf_document, start=1):
 
     print(f"\nSentence {i}")
     print(vector)
+
+# =====================================================
+# TF-IDF VECTORIZATION (SCIKIT-LEARN)
+# =====================================================
+
+print("\n" + "=" * 60)
+print("TF-IDF VECTORIZATION (SCIKIT-LEARN)")
+print("=" * 60)
+
+# Convert each processed sentence back into text
+documents = []
+
+for sentence in lemmatized_document:
+    documents.append(" ".join(sentence))
+
+# Create TF-IDF Vectorizer
+vectorizer = TfidfVectorizer()
+
+# Learn vocabulary and compute TF-IDF
+tfidf_matrix = vectorizer.fit_transform(documents)
+
+print("\nVocabulary")
+print(vectorizer.get_feature_names_out())
+
+print("\nTF-IDF Matrix\n")
+print(tfidf_matrix.toarray())

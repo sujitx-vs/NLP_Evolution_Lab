@@ -15,7 +15,7 @@ nltk.download("stopwords")
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words("english"))
 
-file_path = "datasets/txt_sample01.txt"
+file_path = "datasets/txt_sample.txt"
 
 with open(file_path, "r", encoding="utf-8") as file:
     text = file.read()

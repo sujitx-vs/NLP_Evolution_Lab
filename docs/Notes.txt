@@ -84,3 +84,40 @@ Lemmatization produces valid dictionary forms.
 POS Tagging assigns grammatical roles to words.
 POS-aware Lemmatization uses grammatical information to improve normalization.
 Named Entity Recognition identifies mentions of real-world entities such as people, organizations, and locations.
+
+
+
+
+Statistical NLP
+
+
+### BOW 
+
+While implementing Bag of Words manually,
+I preserved tokens such as **"15.99"**, **"c-dac"**,
+and **"can't"** by using custom preprocessing rules.
+However, when I used Scikit-learn's `CountVectorizer`,
+I observed that the generated vocabulary was different. 
+By default, `CountVectorizer` applies its own tokenizer, 
+which splits tokens based on its internal regular expression. 
+As a result, `"15.99"` became `"15"` and `"99"`, `"c-dac"` became `"dac"` (discarding the single-character `"c"`), 
+and `"can't"` was split, causing `"n't"` to be removed. 
+This experiment showed that the choice of tokenizer and preprocessing strategy directly affects the final vocabulary and the resulting Bag of Words matrix. 
+For complete control over tokenization, custom preprocessing should be performed before vectorization.
+
+
+
+In TF-IDF:
+
+Common words like AI, is, the are like the school uniform—they appear everywhere,
+so they carry little distinguishing information.
+Rare words like healthcare, future, or changing are like the bright red cap—they help identify what makes a document unique.
+
+TF= Total words in the document/ Number of times a word appears
+	​
+
+
+IDF=log(N/DF​)
+
+
+TF-IDF=TF×IDF

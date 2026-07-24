@@ -5,6 +5,7 @@ from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from sklearn.feature_extraction.text import CountVectorizer
 
 nltk.download("wordnet")
 nltk.download("omw-1.4")
@@ -253,5 +254,167 @@ for sentence in lemmatized_document:
     fast_bow.append(vector)
 
 for i, vector in enumerate(fast_bow, start=1):
+    print(f"\nSentence {i}")
+    print(vector)
+
+
+# =====================================================
+# COUNT VECTORIZATION (SCIKIT-LEARN)
+# =====================================================
+
+print("\n" + "=" * 60)
+print("COUNT VECTORIZATION (SCIKIT-LEARN)")
+print("=" * 60)
+
+# Convert token lists back into sentences
+processed_sentences = []
+
+for sentence in lemmatized_document:
+    processed_sentences.append(" ".join(sentence))
+
+# Build Count Vectorizer
+vectorizer = CountVectorizer()
+
+count_matrix = vectorizer.fit_transform(processed_sentences)
+
+# Vocabulary
+print("\nVocabulary")
+print(vectorizer.get_feature_names_out())
+
+# Matrix
+print("\nCount Matrix\n")
+print(count_matrix.toarray())
+
+
+
+# =====================================================
+# DOCUMENT FREQUENCY (DF)
+# =====================================================
+
+import math
+
+print("\n" + "=" * 60)
+print("DOCUMENT FREQUENCY (DF)")
+print("=" * 60)
+
+document_frequency = {}
+
+for word in vocabulary:
+
+    count = 0
+
+    for sentence in lemmatized_document:
+
+        if word in sentence:
+            count += 1
+
+    document_frequency[word] = count
+
+for word, df in document_frequency.items():
+    print(f"{word:15} --> {df}")
+
+
+
+# =====================================================
+# INVERSE DOCUMENT FREQUENCY (IDF)
+# =====================================================
+
+print("\n" + "=" * 60)
+print("INVERSE DOCUMENT FREQUENCY (IDF)")
+print("=" * 60)
+
+number_of_documents = len(lemmatized_document)
+
+idf = {}
+
+for word, df in document_frequency.items():
+
+    idf[word] = math.log(number_of_documents / df)
+
+for word, score in idf.items():
+    print(f"{word:15} --> {score:.4f}")
+
+
+# =====================================================
+# TERM FREQUENCY (TF)
+# =====================================================
+
+print("\n" + "=" * 60)
+print("TERM FREQUENCY (TF)")
+print("=" * 60)
+
+tf_document = []
+
+for i, sentence in enumerate(lemmatized_document, start=1):
+
+    tf = {}
+
+    total_words = len(sentence)
+
+    for word in vocabulary:
+
+        count = sentence.count(word)
+
+        tf[word] = count / total_words if total_words > 0 else 0
+
+    tf_document.append(tf)
+
+    print(f"\nSentence {i}")
+
+    for word, score in tf.items():
+
+        if score > 0:
+            print(f"{word:15} --> {score:.4f}")
+
+
+
+# =====================================================
+# TF-IDF
+# =====================================================
+
+print("\n" + "=" * 60)
+print("TF-IDF")
+print("=" * 60)
+
+tfidf_document = []
+
+for i, tf in enumerate(tf_document, start=1):
+
+    tfidf = {}
+
+    for word in vocabulary:
+
+        tfidf[word] = tf[word] * idf[word]
+
+    tfidf_document.append(tfidf)
+
+    print(f"\nSentence {i}")
+
+    for word, score in tfidf.items():
+
+        if score > 0:
+            print(f"{word:15} --> {score:.4f}")
+
+
+# =====================================================
+# TF-IDF MATRIX
+# =====================================================
+
+print("\n" + "=" * 60)
+print("TF-IDF MATRIX")
+print("=" * 60)
+
+print("\nVocabulary")
+print(vocabulary)
+
+print("\nMatrix")
+
+for i, tfidf in enumerate(tfidf_document, start=1):
+
+    vector = []
+
+    for word in vocabulary:
+        vector.append(round(tfidf[word], 4))
+
     print(f"\nSentence {i}")
     print(vector)

@@ -1,5 +1,6 @@
 import nltk
 import re
+import math
 
 from nltk.tokenize import sent_tokenize
 from nltk.tokenize import word_tokenize
@@ -8,6 +9,9 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+
+nltk.download("punkt")
+nltk.download("punkt_tab")
 nltk.download("wordnet")
 nltk.download("omw-1.4")
 nltk.download("stopwords")
@@ -177,7 +181,7 @@ print("\nVocabulary Size :", len(vocabulary))
 
 
 # =====================================================
-# STEP 7 : BAG OF WORDS (FROM SCRATCH)
+# BAG OF WORDS (FROM SCRATCH)
 # =====================================================
 
 print("\n" + "=" * 60)
@@ -231,7 +235,7 @@ print(word_to_index)
 
 
 # =====================================================
-# STEP 9 : FAST BAG OF WORDS
+# FAST BAG OF WORDS
 # =====================================================
 
 print("\n" + "=" * 60)
@@ -274,13 +278,13 @@ for sentence in lemmatized_document:
     processed_sentences.append(" ".join(sentence))
 
 # Build Count Vectorizer
-vectorizer = CountVectorizer()
+count_vectorizer = CountVectorizer()
 
-count_matrix = vectorizer.fit_transform(processed_sentences)
+count_matrix = count_vectorizer.fit_transform(processed_sentences)
 
 # Vocabulary
 print("\nVocabulary")
-print(vectorizer.get_feature_names_out())
+print(count_vectorizer.get_feature_names_out())
 
 # Matrix
 print("\nCount Matrix\n")
@@ -289,10 +293,91 @@ print(count_matrix.toarray())
 
 
 # =====================================================
-# DOCUMENT FREQUENCY (DF)
+# N-GRAMS (SCIKIT-LEARN)
 # =====================================================
 
-import math
+print("\n" + "=" * 60)
+print("N-GRAMS (SCIKIT-LEARN)")
+print("=" * 60)
+
+# -----------------------------
+# UNIGRAM (Single Word)
+# -----------------------------
+
+print("\nUNIGRAMS")
+print("-" * 40)
+
+unigram_vectorizer = CountVectorizer(ngram_range=(1,1))
+
+unigram_matrix = unigram_vectorizer.fit_transform(processed_sentences)
+
+print("\nVocabulary")
+print(unigram_vectorizer.get_feature_names_out())
+
+print("\nMatrix")
+print(unigram_matrix.toarray())
+
+# -----------------------------
+# BIGRAM (Two Consecutive Words)
+# -----------------------------
+
+
+print("\nBIGRAMS")
+print("-" * 40)
+
+bigram_vectorizer = CountVectorizer(ngram_range=(2,2))
+
+bigram_matrix = bigram_vectorizer.fit_transform(processed_sentences)
+
+print("\nVocabulary")
+print(bigram_vectorizer.get_feature_names_out())
+
+print("\nMatrix")
+print(bigram_matrix.toarray())
+
+
+
+# -----------------------------
+# TRIGRAM (Three Consecutive Words)
+# -----------------------------
+
+
+print("\nTRIGRAMS")
+print("-" * 40)
+
+trigram_vectorizer = CountVectorizer(ngram_range=(3,3))
+
+trigram_matrix = trigram_vectorizer.fit_transform(processed_sentences)
+
+print("\nVocabulary")
+print(trigram_vectorizer.get_feature_names_out())
+
+print("\nMatrix")
+print(trigram_matrix.toarray())
+
+
+# -----------------------------
+# UNIGRAM + BIGRAM
+# -----------------------------
+
+
+print("\nUNIGRAM + BIGRAM")
+print("-" * 40)
+
+mixed_vectorizer = CountVectorizer(ngram_range=(1,2))
+
+mixed_matrix = mixed_vectorizer.fit_transform(processed_sentences)
+
+print("\nVocabulary")
+print(mixed_vectorizer.get_feature_names_out())
+
+print("\nMatrix")
+print(mixed_matrix.toarray())
+
+
+# =====================================================
+# DOCUMENT FREQUENCY (DF)
+# =====================================================
 
 print("\n" + "=" * 60)
 print("DOCUMENT FREQUENCY (DF)")
@@ -304,7 +389,7 @@ for word in vocabulary:
 
     count = 0
 
-    for sentence in lemmatized_document:
+    for sentence in lemmatized_document: 
 
         if word in sentence:
             count += 1
@@ -435,13 +520,13 @@ for sentence in lemmatized_document:
     documents.append(" ".join(sentence))
 
 # Create TF-IDF Vectorizer
-vectorizer = TfidfVectorizer()
+tfidf_vectorizer = TfidfVectorizer()
 
 # Learn vocabulary and compute TF-IDF
-tfidf_matrix = vectorizer.fit_transform(documents)
+tfidf_matrix = tfidf_vectorizer.fit_transform(documents)
 
 print("\nVocabulary")
-print(vectorizer.get_feature_names_out())
+print(tfidf_vectorizer.get_feature_names_out())
 
 print("\nTF-IDF Matrix\n")
 print(tfidf_matrix.toarray())

@@ -130,3 +130,65 @@ for word in transition_counts:
     for next_word, count in transition_counts[word].items():
 
         print(f"   -> {next_word:15} {count}")
+
+
+# =====================================================
+# TRANSITION PROBABILITIES
+# =====================================================
+
+print("\n" + "=" * 60)
+print("TRANSITION PROBABILITIES")
+print("=" * 60)
+
+transition_probabilities = {}
+
+for current_word, next_words in transition_counts.items():
+
+    # Total outgoing transitions from the current word
+    total = sum(next_words.values())
+
+    transition_probabilities[current_word] = {}
+
+    print(f"\nCurrent Word : {current_word}")
+    print("-" * 40)
+
+    for next_word, count in next_words.items():
+
+        probability = count / total
+
+        transition_probabilities[current_word][next_word] = probability
+
+        print(f"{current_word:15} --> {next_word:15} = {probability:.4f}")
+
+
+# =====================================================
+# NEXT WORD PREDICTION
+# =====================================================
+
+print("\n" + "=" * 60)
+print("NEXT WORD PREDICTION")
+print("=" * 60)
+
+while True:
+
+    current_word = input("\nEnter a word (or type 'exit'): ").lower()
+
+    if current_word == "exit":
+        break
+
+    if current_word not in transition_probabilities:
+        print("Word not found in the corpus.")
+        continue
+
+    print(f"\nPossible next words after '{current_word}'\n")
+
+    for next_word, probability in transition_probabilities[current_word].items():
+
+        print(f"{next_word:20} {probability:.4f}")
+
+    prediction = max(
+        transition_probabilities[current_word],
+        key=transition_probabilities[current_word].get
+    )
+
+    print(f"\nMost Probable Next Word : {prediction}")

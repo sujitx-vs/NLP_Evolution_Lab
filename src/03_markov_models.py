@@ -16,7 +16,7 @@ nltk.download("punkt_tab")
 # READ DATASET
 # -----------------------------------------------------
 
-file_path = "datasets/txt_sample.txt"
+file_path = "datasets/txt_sample01.txt"
 
 with open(file_path, "r", encoding="utf-8") as file:
     text = file.read()
@@ -192,3 +192,49 @@ while True:
     )
 
     print(f"\nMost Probable Next Word : {prediction}")
+
+
+# =====================================================
+# SENTENCE GENERATION
+# =====================================================
+
+print("\n" + "=" * 60)
+print("SENTENCE GENERATION")
+print("=" * 60)
+
+while True:
+
+    start_word = input("\nEnter a starting word (or type 'exit'): ").lower()
+
+    if start_word == "exit":
+        break
+
+    if start_word not in transition_probabilities:
+        print("Word not found in the corpus.")
+        continue
+
+    sentence = [start_word]
+
+    current_word = start_word
+
+    max_words = 20
+
+    for _ in range(max_words):
+
+        next_words = transition_probabilities[current_word]
+
+        # Select the word with highest probability
+        next_word = max(
+            next_words,
+            key=next_words.get
+        )
+
+        sentence.append(next_word)
+
+        current_word = next_word
+
+        if current_word not in transition_probabilities:
+            break
+
+    print("\nGenerated Sentence:\n")
+    print(" ".join(sentence))

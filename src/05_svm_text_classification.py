@@ -126,3 +126,24 @@ print("=" * 60)
 accuracy = accuracy_score(y_test, predictions)
 
 print(f"Accuracy : {accuracy * 100:.2f}%")
+
+# =====================================================
+# CUSTOM PREDICTION
+# =====================================================
+
+print("\n" + "=" * 60)
+print("CUSTOM PREDICTION")
+print("=" * 60)
+
+while True:
+
+    sentence = input("\nEnter a sentence (or type 'exit'): ")
+
+    if sentence.lower() == "exit":
+        break
+
+    vector = vectorizer.transform([sentence])
+
+    prediction = model.predict(vector)
+
+    print(f"\nPrediction : {prediction[0]}")

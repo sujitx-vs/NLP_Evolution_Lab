@@ -128,3 +128,10 @@ The Smart CCTV Search document was converted into numerical vectors using both a
 The document contained 67 sentences and approximately 270 unique vocabulary terms. 
 Each sentence was represented as a sparse TF-IDF vector, where most values were zero because only the words present in a sentence received non-zero weights. 
 The Scikit-Learn implementation produced similar feature representations but different numerical values due to its default L2 normalization.
+
+
+In SVM 
+The 100% accuracy is not caused by code or data leakage anymore.
+It is caused by the dataset being linearly separable—the positive and negative classes are distinguished by unique sentiment words, 
+making the classification task trivial for an SVM. As you move to larger, noisier datasets with mixed sentiment and ambiguous language, 
+you'll see more realistic accuracies (often around 85–95% depending on the dataset and preprocessing

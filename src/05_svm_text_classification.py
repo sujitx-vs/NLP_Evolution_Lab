@@ -17,6 +17,21 @@ df = pd.read_csv("datasets/sentiment_dataset.csv")
 
 print(df)
 
+
+print("\n" + "=" * 60)
+print("INBALANCED CHECK")
+print("=" * 60)
+
+print("duplicated rows :", df.duplicated().sum())
+print("duplicated text :", df["text"].duplicated().sum())
+print("label distribution :\n", df["label"].value_counts())
+
+
+# remove duplicate rows
+df = df.drop_duplicates(subset="text")
+print("\nAfter removing duplicates\n")
+print("duplicated rows :", df.duplicated().sum())
+
 # =====================================================
 # FEATURES AND LABELS
 # =====================================================
@@ -45,11 +60,9 @@ print("TRAIN TEST SPLIT")
 print("=" * 60)
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.2,
-    random_state=42
+    X, y, test_size=0.2, random_state=42, stratify=y
 )
+
 
 print("Training Samples :", len(X_train))
 print("Testing Samples  :", len(X_test))

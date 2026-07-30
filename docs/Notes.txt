@@ -135,3 +135,20 @@ The 100% accuracy is not caused by code or data leakage anymore.
 It is caused by the dataset being linearly separable—the positive and negative classes are distinguished by unique sentiment words, 
 making the classification task trivial for an SVM. As you move to larger, noisier datasets with mixed sentiment and ambiguous language, 
 you'll see more realistic accuracies (often around 85–95% depending on the dataset and preprocessing
+
+
+Embedding is the process of converting an object (such as a word, sentence, image, or document) into a dense vector representation in a continuous vector space,
+where similar objects are placed close together.
+embedding is not just converting into a dense vector;
+it is converting into a dense vector that captures semantic meaning by placing similar objects close together.
+
+
+An embedding is not limited to words.
+
+Word Embedding → Word2Vec, GloVe
+Sentence Embedding → Sentence-BERT
+Document Embedding → Used in RAG
+Image Embedding → CLIP
+Audio Embedding → Whisper-like models
+
+So "embedding" is a general concept

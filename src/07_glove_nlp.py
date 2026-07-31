@@ -68,7 +68,7 @@ embeddings = np.array(embeddings)
 # SAVE AS NUMPY FILE
 # =====================================================
 
-output_file = "dataset/processed/glove_embeddings.npy"
+output_file = "datasets/processed/glove_embeddings.npy"
 
 np.save(output_file, embeddings)
 

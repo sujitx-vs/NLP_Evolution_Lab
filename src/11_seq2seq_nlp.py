@@ -1,5 +1,5 @@
-from tensorflow.keras.layers import Input, LSTM, Embedding, Dense
-from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, LSTM, Embedding, Dense # type: ignore
+from tensorflow.keras.models import Model # type: ignore
 
 # Encoder
 encoder_inputs = Input(shape=(None,))

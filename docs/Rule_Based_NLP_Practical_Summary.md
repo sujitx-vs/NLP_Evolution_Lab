@@ -1,6 +1,29 @@
 # Rule-Based NLP - Practical Learning Summary
 
+## Introduction
+
+Rule-Based NLP is the earliest approach to Natural Language Processing.
+
+Instead of learning patterns from data, it processes text using manually defined linguistic rules, dictionaries, and regular expressions.
+
+Most modern NLP systems still perform many of these preprocessing steps before applying machine learning or deep learning models.
+
 This document summarizes the classical Rule-Based NLP pipeline explored through the practical exercises.
+
+## Definition
+
+Rule-Based NLP is an approach where text is processed using predefined rules, dictionaries, grammatical rules, and pattern matching instead of statistical learning.
+
+
+## Why was Rule-Based NLP introduced?
+
+Computers cannot directly understand human language.
+
+Before statistical and deep learning methods existed, researchers relied on manually written rules to analyze text.
+
+These rules allowed computers to identify words, grammatical structures, and named entities.
+
+
 
 ## Classical NLP Pipeline
 
@@ -88,6 +111,32 @@ Raw Text
 - **How:** Context-based sequence labeling.
 - **Limitations:** May misclassify entities.
 
+
+## Overall Limitations
+
+Rule-Based NLP depends entirely on manually written rules.
+
+As languages become more complex, maintaining thousands of rules becomes difficult.
+
+It struggles with:
+
+- Ambiguity
+- Context
+- Slang
+- New words
+- Different writing styles
+
+These limitations motivated the development of Statistical NLP.
+
+
 ## Key Takeaways
 
 The Rule-Based NLP pipeline gradually transforms raw text into structured linguistic information through a series of deterministic processing stages.
+
+Rule-Based NLP
+        ↓
+Statistical NLP
+        ↓
+Deep Learning NLP
+        ↓
+Transformers

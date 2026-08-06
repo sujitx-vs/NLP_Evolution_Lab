@@ -49,7 +49,7 @@ Raw Text
 - **Why:** Load text into memory.
 - **Problem Solved:** Converts file contents into a Python string.
 - **How:** `open()` and `read()`.
-- **Limitations:** Only reads characters.
+- **Limitations:** Reads raw text into memory but performs no linguistic understanding.
 
 ### 2. Whitespace Normalization
 - **Why:** Standardize formatting.
@@ -97,7 +97,7 @@ Raw Text
 - **Why:** Identify grammatical role.
 - **Problem Solved:** Assign noun, verb, adjective, etc.
 - **How:** Context-aware tagging.
-- **Limitations:** Tags may be incorrect.
+- **Limitations:** Accuracy depends on the quality of the tagging model or handcrafted rules.
 
 ### 10. Lemmatization with POS
 - **Why:** Improve lemma accuracy.
@@ -108,7 +108,7 @@ Raw Text
 ### 11. Named Entity Recognition (NER)
 - **Why:** Detect real-world entities.
 - **Problem Solved:** Finds people, organizations and locations.
-- **How:** Context-based sequence labeling.
+- **How:** Uses linguistic rules or statistical models (depending on the implementation) to identify entities such as people, organizations, and locations.
 - **Limitations:** May misclassify entities.
 
 

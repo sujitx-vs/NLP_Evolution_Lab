@@ -108,12 +108,12 @@ AI Agents
 - [x] Regex Basics
 - [x] Naive Sentence Segmentation
 - [x] NLTK Sentence Tokenization
-- [ ] Word Tokenization
-- [ ] Stopword Removal
-- [ ] Stemming
-- [ ] Lemmatization
-- [ ] POS Tagging
-- [ ] Named Entity Recognition
+- [x] Word Tokenization
+- [x] Stopword Removal
+- [x] Stemming
+- [x] Lemmatization
+- [x] POS Tagging
+- [x] Named Entity Recognition
 - [ ] ...
 
 ---

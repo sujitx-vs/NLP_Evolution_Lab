@@ -21,7 +21,7 @@ from nltk.translate.bleu_score import corpus_bleu, SmoothingFunction
 # CONFIGURATION
 # ==========================================================
 
-DATASET_PATH = "datasets/manglish_english.csv"
+DATASET_PATH = "datasets/manglish_english_6000.csv"
 
 MODEL_DIR = Path("models/manglish_seq2seq")
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
